@@ -10,10 +10,14 @@ class Curso extends Model
     use SoftDeletes;
 
     protected $table = 'cursos';
-    protected $fillable = ['nome', 'sigla', 'total_horas', 'nivel_id'];
+    protected $fillable = ['nome', 'sigla', 'total_horas', 'nivel_id', 'eixo_id'];
 
     public function nivel() {
         return $this->belongsTo(Nivel::class);
+    }
+
+    public function eixo() {
+        return $this->belongsTo(Eixo::class);
     }
 
     public function categorias() {

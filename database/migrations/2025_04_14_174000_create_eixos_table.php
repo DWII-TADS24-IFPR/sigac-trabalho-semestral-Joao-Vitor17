@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cursos', function (Blueprint $table) {
-            $table->id()->autoIncrement();
+        Schema::create('eixos', function (Blueprint $table) {
+            $table->id();
             $table->string('nome');
-            $table->string('sigla');
-            $table->float('total_horas');
-            $table->foreignId('nivel_id')->constrained()->onDelete('cascade');
-            $table->foreignId('eixo_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cursos');
+        Schema::dropIfExists('eixos');
     }
 };
