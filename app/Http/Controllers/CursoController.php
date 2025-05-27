@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\CursoRepositoryInterface;
+use App\Repositories\Contracts\EixoRepositoryInterface;
 use App\Repositories\Contracts\NivelRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -11,11 +12,13 @@ class CursoController extends Controller
 {
     protected $cursoRepositorio;
     protected $nivelRepositorio;
+    protected $eixoRepositorio;
 
-    public function __construct(CursoRepositoryInterface $cursoRepositorio, NivelRepositoryInterface $nivelRepositorio)
+    public function __construct(CursoRepositoryInterface $cursoRepositorio, NivelRepositoryInterface $nivelRepositorio, EixoRepositoryInterface $eixoRepositorio)
     {
         $this->cursoRepositorio = $cursoRepositorio;
         $this->nivelRepositorio = $nivelRepositorio;
+        $this->eixoRepositorio = $eixoRepositorio;
     }
 
     public function index()
@@ -27,7 +30,8 @@ class CursoController extends Controller
     public function create()
     {
         $nivels = $this->nivelRepositorio->all();
-        return view('cursos.create')->with('nivels', $nivels);
+        $eixos = $this->eixoRepositorio->all();
+        return view('cursos.create')->with(['nivels' => $nivels, 'eixos' => $eixos]);
     }
 
     public function store(Request $request)
@@ -39,6 +43,10 @@ class CursoController extends Controller
             'nivel_id' => [
                 'required',
                 Rule::exists('nivels', 'id')->whereNull('deleted_at')
+            ],
+            'eixo_id' => [
+                'required',
+                Rule::exists('eixos', 'id')->whereNull('deleted_at')
             ]
         ]);
 
@@ -56,7 +64,8 @@ class CursoController extends Controller
     {
         $curso = $this->cursoRepositorio->find($id);
         $nivels = $this->nivelRepositorio->all();
-        return view('cursos.edit')->with(['curso' => $curso, 'nivels' => $nivels]);
+        $eixos = $this->eixoRepositorio->all();
+        return view('cursos.edit')->with(['curso' => $curso, 'nivels' => $nivels, 'eixos' => $eixos]);
     }
 
     public function update(Request $request, string $id)
@@ -68,6 +77,10 @@ class CursoController extends Controller
             'nivel_id' => [
                 'required',
                 Rule::exists('nivels', 'id')->whereNull('deleted_at')
+            ],
+            'eixo_id' => [
+                'required',
+                Rule::exists('eixos', 'id')->whereNull('deleted_at')
             ]
         ]);
 
