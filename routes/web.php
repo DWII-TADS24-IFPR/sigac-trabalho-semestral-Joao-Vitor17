@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComprovanteController;
@@ -19,9 +20,13 @@ Route::get('/', function () {
 // Route::get('/nivels/create',[NivelController::class,'create']);
 // Route::post('/nivels',[NivelController::class,'store'])->name('nivels.store');
 
-Route::get('/admin', function () {
-    return view('admin');
-});
+// Route::get('/admin', function () {
+//     return view('admin');
+// });
+
+Route::get('/admin', [AdminController::class,'index'])->name('admin');;
+Route::post('/admin/aprovar-documento/{id}', [AdminController::class,'aprovar'])->name('documentos.aprovar');
+Route::post('/admin/rejeitar-documento/{id}', [AdminController::class,'rejeitar'])->name('documentos.rejeitar');
 
 Route::get('/aluno', function () {
     return view('aluno');
