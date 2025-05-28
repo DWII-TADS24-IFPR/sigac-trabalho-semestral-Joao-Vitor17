@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('senha');
             $table->foreignId('curso_id')->constrained()->onDelete('cascade');
             $table->foreignId('turma_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
