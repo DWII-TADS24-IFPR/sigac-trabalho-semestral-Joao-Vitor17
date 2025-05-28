@@ -15,11 +15,11 @@
         </div>
     @endif
 
-    <form action="{{ route('documentos.store') }}" method="post">
+    <form action="{{ route('documentos.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="url" class="form-label">Url</label>
-            <input type="text" class="form-control" name="url" required>
+            <label for="documento" class="form-label">Selecione documento pdf</label>
+            <input type="file" class="form-control" name="documento" accept="application/pdf" required>
         </div>
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
@@ -31,7 +31,7 @@
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control" name="status" required>
+            <input type="text" class="form-control" name="status" value="analise" readonly required>
         </div>
         <div class="mb-3">
             <label for="comentario" class="form-label">Comentario</label>

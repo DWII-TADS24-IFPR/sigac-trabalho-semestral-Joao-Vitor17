@@ -21,7 +21,7 @@
         <tbody>
             <tr>
                 <td scope="col">{{ $documento->id }}</td>
-                <td scope="col">{{ $documento->url }}</td>
+                <td scope="col"><a href="{{ $documento->url }}" target="_blank">Acessar PDF</a></td>
                 <td scope="col">{{ $documento->descricao }}</td>
                 <td scope="col">{{ $documento->horas_in }}</td>
                 <td scope="col">{{ $documento->status }}</td>

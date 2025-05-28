@@ -33,7 +33,7 @@ class DocumentoController extends Controller
     public function store(Request $request)
     {
         $documentoValidate = $request->validate([
-            'url' => 'required|string|min:5',
+            'documento' => 'required|file|mimes:pdf',
             'descricao' => 'required|string|min:10',
             'horas_in' => 'required|integer|min:3',
             'status' => 'required|string|min:3',
@@ -44,6 +44,11 @@ class DocumentoController extends Controller
                 Rule::exists('categorias', 'id')->whereNull('deleted_at')
             ]
         ]);
+
+        $caminhoUrl = $request->file('documento')->store('documentos', 'public');
+        $caminhoUrl = env('APP_URL') . ':8000/storage/' . $caminhoUrl;
+
+        $documentoValidate['url'] = $caminhoUrl;
 
         $documento = $this->documentoRepositorio->create($documentoValidate);
         return redirect()->route('documentos.index')->with(['success' => 'Documento '.$documento->url.' criado com sucesso!!']);
