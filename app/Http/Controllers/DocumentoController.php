@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Contracts\CategoriaRepositoryInterface;
 use App\Repositories\Contracts\DocumentoRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class DocumentoController extends Controller
@@ -20,7 +21,7 @@ class DocumentoController extends Controller
 
     public function index()
     {
-        $documentos = $this->documentoRepositorio->all();
+        $documentos = $this->documentoRepositorio->all()->where('user_id', Auth::user()->id);
         return view('documentos.index')->with('documentos', $documentos);
     }
 
@@ -49,6 +50,7 @@ class DocumentoController extends Controller
         $caminhoUrl = env('APP_URL') . ':8000/storage/' . $caminhoUrl;
 
         $documentoValidate['url'] = $caminhoUrl;
+        $documentoValidate['user_id'] = Auth::user()->id;
 
         $documento = $this->documentoRepositorio->create($documentoValidate);
         return redirect()->route('documentos.index')->with(['success' => 'Documento '.$documento->url.' criado com sucesso!!']);
