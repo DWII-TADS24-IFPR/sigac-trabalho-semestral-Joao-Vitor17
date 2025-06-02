@@ -2,16 +2,19 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlunoController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComprovanteController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DeclaracaoController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\EixoController;
+use App\Http\Controllers\GerarDeclaracaoController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\TurmaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\AlunoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,15 +38,20 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::resource('/cursos', CursoController::class);
     Route::resource('/categorias', CategoriaController::class);
     Route::resource('/turmas', TurmaController::class);
-    Route::resource('/documentos', DocumentoController::class);
     Route::resource('/alunos', AlunoController::class);
     Route::resource('/comprovantes', ComprovanteController::class);
     Route::resource('/declaracoes', DeclaracaoController::class);
     Route::resource('/eixos', EixoController::class);
 });
 
-Route::get('/aluno', function () {
-    return view('aluno');
+Route::middleware(['auth', AlunoMiddleware::class])->group(function () {
+    Route::resource('/documentos', DocumentoController::class);
+    Route::get('/aluno', function () {
+        return view('aluno');
+    })->name('aluno');
+    Route::get('/relatorios', [GerarDeclaracaoController::class, 'emitirDeclaracao'])->name('declaracao.emitir');    
 });
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 require __DIR__.'/auth.php';
