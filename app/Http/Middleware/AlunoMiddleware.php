@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class AlunoMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,7 @@ class AdminMiddleware
     {
         $user = Auth::user();
 
-        if (!$user || $user->aluno) {
+        if (!$user || !$user->aluno) {
             return redirect()->route('login');
         }
 
