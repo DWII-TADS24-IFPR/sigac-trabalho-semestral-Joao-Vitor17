@@ -30,6 +30,7 @@
                 </li>
                 {{ @Auth::user()->name }}
             </ul>
+            <a href="{{ Auth::user()->aluno ? route('aluno') : route('admin') }}" class="btn btn-info me-5">Voltar pra Home</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="btn btn-warning me-5" type="submit">Logout</button>
