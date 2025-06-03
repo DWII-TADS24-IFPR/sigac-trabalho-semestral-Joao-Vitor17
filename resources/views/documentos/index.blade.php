@@ -32,9 +32,11 @@
                                 <button type="submit" class="btn btn-primary">Ver</button>
                             </form>
 
-                            <form action="{{ route('documentos.edit', $documento->id) }}" method="get">
-                                <button type="submit" class="btn btn-info">Editar</button>
-                            </form>
+                            @if ($documento->status == 'analise')
+                                <form action="{{ route('documentos.edit', $documento->id) }}" method="get">
+                                    <button type="submit" class="btn btn-info">Editar</button>
+                                </form>
+                            @endif
                             
                             <form action="{{ route('documentos.destroy', $documento->id) }}" method="post" onsubmit="return confirm('Deseja realmente deletar este documento?');">
                                 @csrf
