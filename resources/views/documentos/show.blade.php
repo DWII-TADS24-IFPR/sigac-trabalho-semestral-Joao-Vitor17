@@ -38,6 +38,7 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
+                <th scope="col">NOME</th>
                 <th scope="col">maximo_horas</th>
                 <th scope="col">curso_id</th>
             </tr>
@@ -45,6 +46,7 @@
         <tbody>
             <tr>
                 <td scope="col">{{ $documento->categoria->id }}</td>
+                <td scope="col">{{ $documento->categoria->nome }}</td>
                 <td scope="col">{{ $documento->categoria->maximo_horas }}</td>
                 <td scope="col">{{ $documento->categoria->curso_id }}</td>
             </tr>

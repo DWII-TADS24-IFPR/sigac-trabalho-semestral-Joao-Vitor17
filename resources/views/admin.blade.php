@@ -41,6 +41,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">URL</th>
+                        <th scope="col">NOME DO ALUNO</th>
                         <th scope="col">DESCRIÇÃO</th>
                         <th scope="col">AÇÕES</th>
                     </tr>
@@ -52,6 +53,7 @@
                             <td>
                                 <a href="{{ $documento->url }}" target="_blank">Acessar PDF</a>
                             </td>
+                            <td>{{ $documento->user->aluno->nome }}</td>
                             <td>{{ $documento->descricao }}</td>
                             <td>
                                 <div class="d-flex justify-content-end gap-2">
