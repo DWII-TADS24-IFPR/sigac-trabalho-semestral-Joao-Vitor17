@@ -14,7 +14,7 @@
                 <a href="{{ route('documentos.index') }}" class="btn btn-primary w-100 p-3">Documentos</a>
             </div>
             <div class="col">
-                <a href="#" class="btn btn-primary w-100 p-3">Gerar Declaração</a>
+                <a href="{{ route('declaracao.emitir') }}" class="btn btn-primary w-100 p-3">Gerar Declaração</a>
             </div>
         </div>
     </div>
